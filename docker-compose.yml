@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+  api:
+    build: .
+    environment:
+      PORT: 3000
+      DEV_APP_PORT: 3000
+      DEV_DB_PORT: 27017
+      DEV_DB_HOST: mongo_db
+      DEV_DB_NAME: dbDev
+    ports:
+      - 4000:3000
+    depends_on:
+      - mongo_db
+    volumes:
+      - .:/usr/src/app
+volumes:
+  mongo_db: {}

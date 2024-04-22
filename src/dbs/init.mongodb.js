@@ -5,10 +5,7 @@ const {
   db: { host, port, name },
 } = require("../configs/config.mongodb");
 
-const connectString = `mongodb://${host}:${port}/${name}`;
-console.log(connectString);
-// const { checkOverLoad } = require("../helpers/check.connect");
-
+const END_POINT_MONGODB = `mongodb://${host}:${port}/${name}`;
 const MAX_POLL_SIZE = 50;
 
 class DataBase {
@@ -23,9 +20,8 @@ class DataBase {
       mongoose.set("debug", { color: true });
     }
     mongoose
-      .connect(connectString, { maxPoolSize: MAX_POLL_SIZE })
+      .connect(END_POINT_MONGODB, { maxPoolSize: MAX_POLL_SIZE })
       .then((_) => {
-        // checkOverLoad();
         console.log("Connected mongodb Success");
       })
       .catch((e) => console.log("Error connect mongoDB: ", e));
