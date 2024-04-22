@@ -1,0 +1,48 @@
+const { Schema, model } = require("mongoose"); // Erase if already required
+
+const DOCUMENT_NAME = "shop";
+const CONNECTION_NAME = "shops";
+
+// Declare the Schema of the Mongo model
+const ShopSchema = new Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      maxLength: 150,
+    },
+    email: {
+      type: String,
+      trim: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "inactive",
+    },
+    verfify: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
+    roles: {
+      type: Array,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+    collection: CONNECTION_NAME,
+  }
+);
+
+//Export the model
+module.exports = model(DOCUMENT_NAME, ShopSchema);
