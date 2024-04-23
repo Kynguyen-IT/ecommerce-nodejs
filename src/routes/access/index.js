@@ -3,11 +3,8 @@
 const express = require("express");
 const router = express.Router();
 const accessController = require("../../controllers/access.controller");
+const { asynHandler } = require("../../auth/checkAuth");
 
-router.post("/shop/signup", accessController.signUp);
-router.get("/shop/signup", (req, res, next) => {
-    console.log(req)
-    return res.status(200).json({type: '4dsadsa45'})
-});
+router.post("/shop/signup", asynHandler(accessController.signUp));
 
 module.exports = router;

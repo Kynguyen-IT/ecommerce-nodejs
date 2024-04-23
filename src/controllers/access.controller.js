@@ -1,13 +1,14 @@
-const accessService = require("../services/access.service");
+const { CREATED } = require("../core/success.respone");
+const AccessService = require("../services/access.service");
 
 class AccessController {
   signUp = async (req, res, next) => {
-    try {
-      const signUpShop = await accessService.signUp(req.body);
-      return res.status(201).json(signUpShop);
-    } catch (error) {
-      next(error);
-    }
+    const { metadata } = await AccessService.signUp(req.body);
+
+    new CREATED({
+      metadata,
+      message: "Success: created shop",
+    }).send(res);
   };
 }
 
